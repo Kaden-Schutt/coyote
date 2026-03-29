@@ -2,7 +2,7 @@
 name = "coyote"
 version = "0.1.0"
 edition = "2021"
-description = "coyote — data over sound. Smuggle data through audio codecs."
+description = "coyote — send data through sound. Encode data into audio that survives lossy codec compression."
 license = "MIT"
 
 [lib]
