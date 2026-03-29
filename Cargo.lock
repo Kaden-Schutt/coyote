@@ -160,6 +160,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d07550c9036bf2ae0c684c4297d503f838287c83c53686d05370d0e139ae570"
 
 [[package]]
+name = "coyote"
+version = "0.1.0"
+dependencies = [
+ "audiopus",
+ "byteorder",
+ "clap",
+ "crc32fast",
+ "csv",
+ "hound",
+ "pyo3",
+ "rustfft",
+ "tempfile",
+ "thiserror",
+ "zstd",
+]
+
+[[package]]
 name = "crc32fast"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -868,23 +885,6 @@ dependencies = [
  "serde_json",
  "unicode-xid",
  "wasmparser",
-]
-
-[[package]]
-name = "yip"
-version = "0.3.0"
-dependencies = [
- "audiopus",
- "byteorder",
- "clap",
- "crc32fast",
- "csv",
- "hound",
- "pyo3",
- "rustfft",
- "tempfile",
- "thiserror",
- "zstd",
 ]
 
 [[package]]

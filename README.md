@@ -89,41 +89,39 @@ HF radio protocol. Long-range, low-bandwidth.
 
 ## Agent Integration
 
-### Hermes Agent Skill
+### Built for Hermes Agent
 
-coyote ships as a native [Hermes Agent](https://github.com/NousResearch/hermes-agent) skill.
-Agents can send and receive data through audio channels autonomously.
+coyote was built for use with [Hermes Agent](https://github.com/NousResearch/hermes-agent)
+and ships with a ready-made skill file. To add it to your Hermes agent, copy the
+skill into your skills directory:
+
+```bash
+cp -r skills/yote-data-over-audio ~/.hermes/skills/media/
+```
+
+Once installed, your Hermes agent can use yote naturally — pack files, stream
+data over TCP, or share knowledge through Discord voice. The skill includes
+full usage documentation the agent reads automatically.
+
+A standalone skill repo is also available for direct cloning:
+```bash
+git clone https://github.com/Kaden-Schutt/coyote ~/.hermes/skills/media/yote-data-over-audio
+```
+
+### Discord Voice — Agent-to-Agent Knowledge Sharing
+
+Discord voice uses Opus natively. yote data IS valid Opus audio. Agents can
+join voice channels and exchange data — it sounds like static to humans,
+but other yote-equipped agents decode it perfectly.
 
 ```python
-# In a Hermes agent workflow
-import yote
-
-# Encode data for audio transmission
-packets = yote.encode(knowledge_payload)
-
-# Send through Discord voice channel
 from yote.discord_bridge import YoteBridge
+
 bridge = YoteBridge(bot=discord_bot)
 await bridge.share_knowledge(guild_id, channel_id, {
     "topic": "training results",
     "data": {"accuracy": 0.95, "model": "v2"},
 })
-```
-
-### Discord Voice Channel
-
-Discord uses Opus natively — yote data IS valid Opus audio. Agents can join
-voice channels and exchange data invisibly (sounds like static to humans).
-
-```python
-from yote.discord_bridge import send_to_voice
-
-await send_to_voice(
-    token="bot-token",
-    guild_id=123456,
-    channel_id=789012,
-    data=b"inter-agent knowledge transfer"
-)
 ```
 
 ## Architecture
