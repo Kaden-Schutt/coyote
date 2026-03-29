@@ -95,7 +95,7 @@ coyote was built for use with [Hermes Agent](https://github.com/NousResearch/her
 and ships with a ready-made [agentskills.io](https://agentskills.io) compatible skill.
 
 ```bash
-hermes skills install github:Kaden-Schutt/coyote/skills/yote-data-over-audio
+hermes skills install github:Kaden-Schutt/coyote/skills/yote
 ```
 
 Once installed, your Hermes agent can use yote naturally — pack files, stream
