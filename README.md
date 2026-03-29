@@ -1,4 +1,4 @@
-# 🐺 coyote
+# coyote
 
 **Send data through sound.**
 
