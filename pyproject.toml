@@ -4,10 +4,23 @@ build-backend = "maturin"
 
 [project]
 name = "yote"
-version = "0.1.0"
-description = "Data-over-audio codec. Smuggle data through Opus audio channels."
+version = "0.1.1"
+description = "Send data through sound. Encode data into audio that survives lossy codec compression."
 requires-python = ">=3.8"
 license = {text = "MIT"}
+authors = [{name = "Kaden Schutt"}]
+keywords = ["audio", "codec", "opus", "data-over-sound", "fsk", "agent"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Topic :: Communications",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+
+[project.urls]
+Repository = "https://github.com/Kaden-Schutt/coyote"
 
 [project.scripts]
 yote = "yote.cli:main"

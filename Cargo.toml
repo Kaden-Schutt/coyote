@@ -1,6 +1,6 @@
 [package]
 name = "coyote"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "coyote — send data through sound. Encode data into audio that survives lossy codec compression."
 license = "MIT"
