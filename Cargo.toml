@@ -1,0 +1,34 @@
+[package]
+name = "coyote"
+version = "0.1.0"
+edition = "2021"
+description = "coyote — data over sound. Smuggle data through audio codecs."
+license = "MIT"
+
+[lib]
+name = "yip"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "yote"
+path = "src/bin/main.rs"
+
+[dependencies]
+rustfft = "6.2"
+crc32fast = "1.4"
+clap = { version = "4", features = ["derive"] }
+hound = "3.5"
+byteorder = "1.5"
+thiserror = "2"
+audiopus = "0.2"
+csv = "1.3"
+zstd = "0.13"
+pyo3 = { version = "0.22", features = ["extension-module"], optional = true }
+
+[features]
+default = []
+python = ["pyo3"]
+
+[dev-dependencies]
+tempfile = "3"
