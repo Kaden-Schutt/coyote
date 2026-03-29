@@ -99,10 +99,6 @@ The frequency plan, bin spacing, and amplitude normalization were optimized over
 
 **yawp** — Neural error correction for yip. Shipping in v0.1. A 46K-parameter two-stage gated decoder (PyTorch, optional). FFT decodes first; a neural corrector overrides only on low-confidence bins. The gate guarantees clean performance is never degraded. Reduces double-transcode errors by 3.3×. Enable by installing PyTorch; disable with `YOTE_NO_YAWP=1` or `--no-yawp`.
 
-**yowl** — HF radio protocol. Planned.
-
-**yap** — Air-gap and ultrasonic protocol. Speaker-to-microphone data transfer. Planned.
-
 ## Agent integration
 
 ### Hermes Agent
@@ -143,6 +139,11 @@ yote install -p PORT        Start persistent listener
 ```
 
 **Transports:** `port:HOST:PORT` (TCP), `pipe` (stdin/stdout).
+
+## Roadmap
+[Planned] **yowl** — HF radio protocol.
+
+[Planned] **yap** — Air-gap and ultrasonic protocol. Speaker-to-microphone data transfer. 
 
 ## Documentation
 
