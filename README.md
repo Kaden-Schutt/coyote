@@ -1,6 +1,9 @@
-# coyote
+<p align="center">
+  <img src="assets/logo.png" alt="coyote" width="200">
+</p>
 
-**Send data through sound.**
+<h1 align="center">coyote</h1>
+<p align="center"><strong>Send data through sound.</strong></p>
 
 *Built with [Hermes Agent](https://github.com/NousResearch/hermes-agent)*
 
