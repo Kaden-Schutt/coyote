@@ -2,7 +2,7 @@
 
 **data over sound**
 
-*Built with [Hermes Agent](https://github.com/hermes-ai)*
+*Built with [Hermes Agent](https://github.com/NousResearch/hermes-agent)*
 
 Smuggle arbitrary data through audio codecs — voice calls, Discord, Opus streams,
 or any channel that carries sound. Zero bit errors on clean audio. Neural error
@@ -56,7 +56,6 @@ yote.unyip("secret.pdf.yip")
 | **Throughput** | 7,900 bps (987 bytes/sec) at 128kbps Opus |
 | **Max throughput** | 13,500 bps (1,687 bytes/sec) at 256kbps |
 | **Clean BER** | 0.000% (zero bit errors) |
-| **Double transcode BER** | 4.67% with yawp (vs 18.1% FFT-only) |
 | **Codec** | Opus, all bitrates 64-256 kbps |
 | **Frame size** | 20ms (960 samples at 48kHz) |
 | **Modulation** | 79-bin Quad FSK with pilot tones + differential encoding |
@@ -71,28 +70,28 @@ yote.unyip("secret.pdf.yip")
 
 ## Protocols
 
-### 🐕 yip (v0.1 — shipping now)
+### 🐕 yip (v0.1)
 FSK over Opus. 79 frequency bins × 2 bits × 50 frames/sec. Hand-tuned with
 15,736 parameter sweep trials. Proven optimal by CMA-ES — neural encoders
 cannot beat it.
 
-### 🐕 yawp (v0.1 — shipping now)
+### 🐕 yawp (v0.1)
 Neural error correction for yip. Two-stage gated decoder: FFT decodes first,
 a 46K-parameter neural net corrects bins where FFT confidence is low. The gate
 guarantees 0% BER on clean audio while improving degraded channels by 3.3×.
 Optional — requires PyTorch. Disable with `YOTE_NO_YAWP=1`.
 
-### 🐺 yowl (planned)
-HF radio protocol. Long-range, low-bandwidth.
-
 ### 🐕 yap (planned)
 Air-gap / ultrasonic protocol. Speaker-to-microphone data transfer.
+
+### 🐺 yowl (planned)
+HF radio protocol. Long-range, low-bandwidth.
 
 ## Agent Integration
 
 ### Hermes Agent Skill
 
-coyote ships as a native [Hermes Agent](https://github.com/hermes-ai) skill.
+coyote ships as a native [Hermes Agent](https://github.com/NousResearch/hermes-agent) skill.
 Agents can send and receive data through audio channels autonomously.
 
 ```python
@@ -134,9 +133,8 @@ DATA → zstd compress → yip modulate (79 FSK bins) → Opus encode → AUDIO
 AUDIO → Opus decode → yawp correct (optional) → yip demodulate → zstd decompress → DATA
 ```
 
-The key insight: Opus is designed to preserve tonal content. yip places data
-at carefully chosen frequencies that Opus faithfully reproduces. We ride the
-codec instead of fighting it.
+Opus is designed to preserve tonal content. yip places data at carefully chosen frequencies 
+that Opus faithfully reproduces. We ride the codec instead of fighting it.
 
 ## CLI Reference
 
@@ -174,6 +172,6 @@ MIT
 
 ---
 
-*coyote was built in a single session with [Hermes Agent](https://github.com/hermes-ai) —
+*coyote was built in a single session with [Hermes Agent](https://github.com/NousResearch/hermes-agent) —
 from mathematical optimization through neural decoder training to shipping CLI.
 15,736 automated parameter sweeps, 50+ training experiments, all orchestrated by AI.*
