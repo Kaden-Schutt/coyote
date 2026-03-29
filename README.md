@@ -92,21 +92,15 @@ HF radio protocol. Long-range, low-bandwidth.
 ### Built for Hermes Agent
 
 coyote was built for use with [Hermes Agent](https://github.com/NousResearch/hermes-agent)
-and ships with a ready-made skill file. To add it to your Hermes agent, copy the
-skill into your skills directory:
+and ships with a ready-made [agentskills.io](https://agentskills.io) compatible skill.
 
 ```bash
-cp -r skills/yote-data-over-audio ~/.hermes/skills/media/
+hermes skills install github:Kaden-Schutt/coyote/skills/yote-data-over-audio
 ```
 
 Once installed, your Hermes agent can use yote naturally — pack files, stream
-data over TCP, or share knowledge through Discord voice. The skill includes
-full usage documentation the agent reads automatically.
-
-A standalone skill repo is also available for direct cloning:
-```bash
-git clone https://github.com/Kaden-Schutt/coyote ~/.hermes/skills/media/yote-data-over-audio
-```
+data over TCP, or share knowledge through Discord voice channels. The skill
+includes full usage documentation the agent reads automatically when needed.
 
 ### Discord Voice — Agent-to-Agent Knowledge Sharing
 
