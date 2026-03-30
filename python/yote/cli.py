@@ -386,7 +386,7 @@ def cmd_install(args):
 def main():
     parser = argparse.ArgumentParser(
         prog="yote",
-        description="Data-over-audio codec. Smuggle data through Opus audio channels.",
+        description="Data-over-audio codec. Send data through sound.",
     )
     sub = parser.add_subparsers(dest="command")
 

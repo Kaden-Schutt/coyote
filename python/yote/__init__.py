@@ -1,16 +1,9 @@
-"""yote — data-over-audio codec. Smuggle data through Opus audio channels."""
-
-import os
+"""yote — data-over-audio codec. Send data through sound."""
 
 from yote._yote import yip, unyip, info, encode, decode, encode_frame, decode_frame, stats
+from yote.yawp import decode_frame as yawp_decode
 
-try:
-    if os.environ.get("YOTE_NO_YAWP") == "1":
-        raise ImportError("yawp disabled by YOTE_NO_YAWP")
-    from yote.yawp import YawpCorrector, decode_frame as yawp_decode
-    HAS_YAWP = True
-except ImportError:
-    HAS_YAWP = False
+HAS_YAWP = True
 
 __all__ = [
     "yip", "unyip", "info", "encode", "decode", "encode_frame", "decode_frame", "stats",

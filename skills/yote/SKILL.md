@@ -1,12 +1,12 @@
 ---
 name: yote
 description: Send and receive data through audio channels using yote (data-over-Opus codec). Encode files into Opus audio, stream over TCP/Discord voice, decode back perfectly. Part of the (co)yote protocol family.
-version: 0.1.0
+version: 0.2.0
 author: Hermes Agent
 license: MIT
 metadata:
   hermes:
-    tags: [Audio, Codec, Data-Transfer, Opus, Steganography, Agent-Communication, Discord]
+    tags: [Audio, Codec, Data-Transfer, Opus, Agent-Communication, Discord]
     related_skills: []
 ---
 

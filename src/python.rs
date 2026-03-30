@@ -11,6 +11,7 @@ use crate::io;
 use crate::modulation;
 use crate::opus;
 use crate::quant;
+use crate::yawp;
 
 fn parse_depth(depth: &str) -> PyResult<Depth> {
     match depth.to_lowercase().as_str() {
@@ -197,6 +198,48 @@ fn stats(py: Python<'_>) -> PyResult<Py<PyDict>> {
     Ok(dict.into())
 }
 
+/// FFT decode a PCM frame with confidence scores.
+///
+/// Returns (symbols, confidences, magnitudes):
+///   symbols:      list[int]   — best symbol per bin [79]
+///   confidences:  list[float] — top/second magnitude ratio [79]
+///   magnitudes:   list[list[float]] — raw energies [79][4]
+#[pyfunction]
+#[pyo3(signature = (pcm, bitrate = 128, depth = "quad"))]
+fn yawp_decode(pcm: Vec<f32>, bitrate: u32, depth: &str) -> PyResult<(Vec<i32>, Vec<f32>, Vec<Vec<f32>>)> {
+    let config = make_config(bitrate, depth)?;
+    if pcm.len() != config.frame_samples {
+        return Err(pyo3::exceptions::PyValueError::new_err(
+            format!("expected {} samples, got {}", config.frame_samples, pcm.len()),
+        ));
+    }
+
+    let result = yawp::fft_decode_with_confidence(&pcm, &config);
+    Ok((result.symbols, result.confidences, result.magnitudes))
+}
+
+/// Convert symbols to bits. Each symbol is unpacked MSB-first.
+/// Returns list[float] of 0.0/1.0 values.
+#[pyfunction]
+#[pyo3(signature = (symbols, bits_per_bin = 2))]
+fn yawp_symbols_to_bits(symbols: Vec<i32>, bits_per_bin: usize) -> Vec<f32> {
+    yawp::symbols_to_bits(&symbols, bits_per_bin)
+}
+
+/// Decode a PCM frame with neural correction (FFT + corrector MLP).
+/// Returns bits [158] as list of floats.
+#[pyfunction]
+#[pyo3(signature = (pcm, bitrate_idx = 2, bitrate = 128, depth = "quad"))]
+fn yawp_correct(pcm: Vec<f32>, bitrate_idx: usize, bitrate: u32, depth: &str) -> PyResult<Vec<f32>> {
+    let config = make_config(bitrate, depth)?;
+    if pcm.len() != config.frame_samples {
+        return Err(pyo3::exceptions::PyValueError::new_err(
+            format!("expected {} samples, got {}", config.frame_samples, pcm.len()),
+        ));
+    }
+    Ok(yawp::decode_frame_corrected(&pcm, &config, bitrate_idx))
+}
+
 /// The native `_yote` Python module.
 #[pymodule]
 fn _yote(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -208,5 +251,8 @@ fn _yote(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(encode_frame, m)?)?;
     m.add_function(wrap_pyfunction!(decode_frame, m)?)?;
     m.add_function(wrap_pyfunction!(stats, m)?)?;
+    m.add_function(wrap_pyfunction!(yawp_decode, m)?)?;
+    m.add_function(wrap_pyfunction!(yawp_symbols_to_bits, m)?)?;
+    m.add_function(wrap_pyfunction!(yawp_correct, m)?)?;
     Ok(())
 }

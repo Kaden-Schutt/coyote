@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "yote"
-version = "0.1.1"
+version = "0.2.0"
 description = "Send data through sound. Encode data into audio that survives lossy codec compression."
 requires-python = ">=3.8"
 license = {text = "MIT"}

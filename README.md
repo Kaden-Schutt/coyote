@@ -98,9 +98,9 @@ The frequency plan, bin spacing, and amplitude normalization were optimized over
 
 ## Protocols
 
-**yip** — FSK over Opus. Shipping in v0.1. Zero-error on clean channels, 6 bitrate tiers, zstd compression, CRC32 integrity checks.
+**yip** — FSK over Opus. Zero-error on clean channels, 6 bitrate tiers, zstd compression, CRC32 integrity checks.
 
-**yawp** — Neural error correction for yip. Shipping in v0.1. A 46K-parameter two-stage gated decoder (PyTorch, optional). FFT decodes first; a neural corrector overrides only on low-confidence bins. The gate guarantees clean performance is never degraded. Reduces double-transcode errors by 3.3×. Enable by installing PyTorch; disable with `YOTE_NO_YAWP=1` or `--no-yawp`.
+**yawp** — Neural error correction for yip. A 46K-parameter two-stage gated decoder compiled into the native extension. FFT decodes first; a neural corrector activates only on low-confidence bins, skipping entirely when the signal is clean. Reduces double-transcode errors by 3.3×. No external dependencies required.
 
 ## Agent integration
 
