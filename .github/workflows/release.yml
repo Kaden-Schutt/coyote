@@ -21,8 +21,10 @@ jobs:
         platform:
           - runner: ubuntu-latest
             target: x86_64
-          - runner: ubuntu-latest
+            manylinux: auto
+          - runner: ubuntu-24.04-arm
             target: aarch64
+            manylinux: auto
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,8 +34,8 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --features python -i 3.9 3.10 3.11 3.12 3.13
-          manylinux: auto
+          args: --release --out dist --features python
+          manylinux: ${{ matrix.platform.manylinux }}
           docker-options: -e LIBOPUS_NO_PKG=1
           before-script-linux: |
             apt-get update && apt-get install -y autoconf automake libtool || \
